@@ -51,3 +51,16 @@ class TestInventoryService(unittest.TestCase):
             "Not enough stock available.",
             "Incorrect error message for insufficient stock."
         )
+
+    def test_purchase_raises_error_when_sweet_id_invalid(self):
+        """
+        Test that purchasing a non-existent sweet raises a ValueError.
+        """
+        with self.assertRaises(ValueError) as context:
+            self.service.purchase_sweet(9999, 5)  # No such ID
+
+        self.assertEqual(
+            str(context.exception),
+            "Sweet with the given ID does not exist.",
+            "Incorrect error message for invalid sweet ID."
+        )

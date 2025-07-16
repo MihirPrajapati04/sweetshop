@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ### 4. Run the Web App
 
 ```bash
-streamlit run sweetshop/sweetshop_app.py
+streamlit run sweetshop_app.py
 ```
 
 ---

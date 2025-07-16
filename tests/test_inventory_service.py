@@ -3,6 +3,7 @@ from database.db import DBManager
 from models.sweet import Sweet
 from sweetshop.inventory_service import InventoryService  # To be implemented
 
+
 class TestInventoryService(unittest.TestCase):
     """
     Unit tests for the InventoryService class, focused on purchasing sweets.
@@ -76,3 +77,16 @@ class TestInventoryService(unittest.TestCase):
         ).fetchone()[0]
 
         self.assertEqual(updated_quantity, 70, "Quantity was not correctly increased after restocking.")
+
+    def test_restock_sweet_raises_error_for_invalid_id(self):
+        """
+        Test that restocking a non-existent sweet raises a ValueError.
+        """
+        with self.assertRaises(ValueError) as context:
+            self.service.restock_sweet(9999, 10)  # ID doesn't exist
+
+        self.assertEqual(
+            str(context.exception),
+            "Sweet with the given ID does not exist.",
+            "Incorrect error message for invalid sweet ID during restock."
+        )

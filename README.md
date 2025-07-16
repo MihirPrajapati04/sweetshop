@@ -1,174 +1,149 @@
 
+
+
 # 🍬 Sweet Shop Management System
 
-A simple and robust **Sweet Shop Inventory Management System** built using Python, TDD principles, SQLite, and a modern Streamlit-based frontend.
+A fully functional Sweet Shop Inventory Management System built using Python, SQLite, TDD principles, and a modern Streamlit frontend.
 
-This project was developed as a kata assignment with a strong focus on:
-- ✅ Clean code architecture (OOP)
-- ✅ Full Test-Driven Development (TDD)
-- ✅ Modular, extensible services
-- ✅ A user-friendly web interface (Streamlit)
+> 🚀 Developed for an assignment with a strict Test-Driven Development workflow  
+> 🧪 100% unit test coverage  
+> 🎨 Includes a responsive, interactive Streamlit web interface
 
 ---
 
-## 🛠️ Tech Stack
+## 📥 How to Clone and Run Locally
 
-| Layer         | Tech                |
-|---------------|---------------------|
-| Language      | Python 3.8+         |
-| Database      | SQLite              |
-| Backend Logic | Pure Python OOP     |
-| Testing       | `unittest` (TDD)    |
-| Frontend      | Streamlit           |
+### 1. Clone the Repository
 
----
-
-## 📁 Folder Structure
-
-```
-
-sweetshop/
-├── database/
-│   └── db.py                  # DBManager class (handles SQLite connection)
-├── models/
-│   └── sweet.py               # Sweet dataclass model
-├── sweetshop/
-│   ├── add\_service.py         # Add sweets
-│   ├── view\_service.py        # View all sweets
-│   ├── search\_service.py      # Name search
-│   ├── category\_search\_service.py  # Category search
-│   ├── price\_search\_service.py     # Price range search
-│   ├── delete\_service.py      # Delete sweet by ID
-│   ├── inventory\_service.py   # Purchase / Restock logic
-│   └── sweetshop\_app.py       # ✅ Streamlit frontend
-├── tests/
-│   └── test\_\*.py              # Unit tests for each service
-├── requirements.txt
-└── README.md
-
+```bash
+git clone https://github.com/MihirPrajapati04/sweetshop.git
+cd sweetshop
 ````
 
----
+### 2. Create a Virtual Environment (optional but recommended)
 
-## ⚙️ Setup Instructions
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-### 1. 📦 Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
-````
+```
 
-### 2. 🚀 Run the App (Frontend)
+### 4. Run the Web App
 
 ```bash
 streamlit run sweetshop/sweetshop_app.py
 ```
 
-> This will open your browser with the Sweet Shop UI.
+---
+
+## ✅ Features Implemented
+
+| Category       | Description                                         |
+| -------------- | --------------------------------------------------- |
+| 🧾 Add Sweet   | Add new sweet with name, category, price, qty       |
+| 📋 View All    | View all sweets in a table format                   |
+| 🔍 Search      | Search sweets by name, category, or price range     |
+| 🛒 Purchase    | Reduce stock when a customer purchases sweets       |
+| 📦 Restock     | Increase stock quantity for a sweet                 |
+| 🗑️ Delete     | Remove a sweet entry by ID                          |
+| ✅ TDD          | All logic was written using Test-Driven Development |
+| 🧪 Unit Tested | 20+ test cases using Python’s `unittest`            |
+
+---
+
+## 📂 Project Structure
+
+```
+sweetshop/
+├── database/
+│   └── db.py                  # DBManager: manages SQLite connection
+├── models/
+│   └── sweet.py               # Sweet dataclass (id, name, category, etc.)
+├── sweetshop/
+│   ├── add_service.py         # Add logic
+│   ├── view_service.py        # View logic
+│   ├── search_service.py      # Name search
+│   ├── category_search_service.py  # Category search
+│   ├── price_search_service.py     # Price range search
+│   ├── inventory_service.py   # Purchase / Restock logic
+│   ├── delete_service.py      # Delete by ID
+├── tests/
+│   ├── test_add_service.py
+│   ├── test_view_service.py
+│   ├── test_search_service.py
+│   ├── test_category_search_service.py
+│   ├── test_price_search_service.py
+│   ├── test_delete_service.py
+│   └── test_inventory_service.py
+├── sweetshop_app.py # ✅ Streamlit frontend
+├── requirements.txt
+├── test_report.txt
+└── README.md
+```
 
 ---
 
 ## 🧪 Running Tests
 
-This project is built using **pure TDD** — all logic was tested *before* implementation.
-
-To run tests:
+Tests are written using the built-in `unittest` module.
 
 ```bash
 python -m unittest discover tests/
 ```
 
----
-
-## 🧰 Features
-
-### ✅ Admin Panel Capabilities
-
-* Add new sweets
-* View all inventory
-* Search sweets:
-
-  * by name
-  * by category
-  * by price range
-* Purchase sweets (updates quantity)
-* Restock sweets
-* Delete sweets
-
-### ✅ Inventory Rules
-
-* Raises errors for invalid IDs
-* Prevents purchasing when stock is insufficient
-* Handles empty result cases gracefully
+✅ All service classes (add, delete, view, inventory, etc.) have full test coverage.
+📄 A test report is available in [`test_report.txt`](./test_report.md)
 
 ---
 
-## ✨ Optional Frontend Highlights
+## 🖼️ Screenshots
 
-* Responsive layout with `st.tabs()`
-* Inline success/error messages
-* Form-driven UI for each action
-* Table views for search and listings
-* No HTML or JS needed — all in Python
+### 📋 View All Sweets
+
+![View All Sweets](screenshots/view_all.png)
+
+### ➕ Add Sweet
+
+![Add Sweet](screenshots/add_sweet.png)
+
+### 🛒 Purchase Sweet
+
+![Puchase](screenshots/purchase.png)
+
+### 📦 Restock Sweet
+
+![Restock](screenshots/restock.png)
+
+### 🗑️ Delete Sweet
+
+![Delete](screenshots/delete.png)
+
 
 ---
 
-## 🚀 Deployment
+## 🌐 Deploy (Optional - Streamlit Cloud)
 
-Want to deploy for free?
+Want to share this online?
 
-You can deploy this app in minutes on [Streamlit Cloud](https://streamlit.io/cloud):
-
-1. Push this project to GitHub
-2. Go to [streamlit.io/cloud](https://streamlit.io/cloud)
-3. Click **"New app"**
-4. Link your GitHub repo and select `sweetshop/sweetshop_app.py` as entry point
-5. Done! 🎉
-
----
-
-## 📌 Notes
-
-* This project follows **Test-Driven Development strictly**:
-
-  * First failing test → then passing logic → then refactor.
-* Each service class is modular and testable.
-* You can extend this system for:
-
-  * Authentication
-  * Graphical reports
-  * CSV import/export
-  * Multi-user support
+1. Push your project to GitHub (done ✅)
+2. Go to [Streamlit Cloud](https://streamlit.io/cloud)
+3. Click **“New app”**
+4. Set the repo and `sweetshop/sweetshop_app.py` as entrypoint
+5. Deploy 🚀
 
 ---
 
 ## 👨‍💻 Author
 
 **Mihir Prajapati**
-LDCE, Computer Engineering
-Developed for Incubyte Kata Assignment
+📚 LDCE – Computer Engineering
+🛠️ Developed for Incubyte Kata Assignment
+🔗 [github.com/MihirPrajapati04](https://github.com/MihirPrajapati04)
 
 ---
 
-## 📜 License
-
-This project is open-source and free to use for educational and non-commercial purposes.
-
-````
-
----
-
-## 📎 Also include `requirements.txt`
-
-```txt
-streamlit
-````
-
-(Add others like `pytest`, etc., if you use them.)
-
----
-
-Would you like me to also generate:
-
-* A `setup.sh` or `Makefile` to automate setup?
-* A Loom/YouTube-ready script if you're recording a demo?

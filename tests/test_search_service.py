@@ -37,3 +37,13 @@ class TestSearchSweetService(unittest.TestCase):
         self.assertEqual(len(result), 1, "Expected exactly one matching sweet.")
         self.assertIsInstance(result[0], Sweet, "List item is not a Sweet instance.")
         self.assertEqual(result[0].name, "Gulab Jamun", "Sweet name does not match.")
+
+    def test_search_sweet_by_partial_name(self):
+        """
+        Test that searching by partial name returns matching sweets.
+        """
+        result = self.service.search_by_name("Jamun")
+
+        self.assertIsInstance(result, list, "Expected result to be a list.")
+        self.assertGreaterEqual(len(result), 1, "Expected at least one matching sweet.")
+        self.assertTrue(any("Jamun" in sweet.name for sweet in result), "No sweet contains 'Jamun' in the name.")

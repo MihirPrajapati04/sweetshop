@@ -13,17 +13,19 @@ class SearchSweetService:
 
     def search_by_name(self, name):
         """
-        Searches for sweets with an exact name match (case-insensitive).
+        Searches for sweets by partial (case-insensitive) name match.
 
         Args:
-            name (str): The name to search for.
+            name (str): The name or part of name to search for.
 
         Returns:
             List[Sweet]: List of matching Sweet records.
         """
-        self.db.cursor.execute("""
-            SELECT * FROM sweets WHERE LOWER(name) = LOWER(?)
-        """, (name,))
+        query = """
+            SELECT * FROM sweets
+            WHERE LOWER(name) LIKE LOWER(?)
+        """
+        self.db.cursor.execute(query, (f"%{name}%",))
         rows = self.db.cursor.fetchall()
 
         return [

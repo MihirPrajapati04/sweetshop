@@ -35,3 +35,16 @@ class TestViewSweetService(unittest.TestCase):
         self.assertEqual(len(sweets), 1, "Expected exactly one sweet in the list.")
         self.assertIsInstance(sweets[0], Sweet, "List item is not a Sweet instance.")
         self.assertEqual(sweets[0].name, "Imarti", "Sweet name does not match expected value.")
+
+    def test_view_all_sweets_returns_empty_list_when_no_records(self):
+        """
+        Test that view_all_sweets returns an empty list when no sweets exist in the database.
+        """
+        # Clean DB explicitly to ensure it's empty
+        self.db.cursor.execute("DELETE FROM sweets")
+        self.db.conn.commit()
+
+        sweets = self.service.view_all_sweets()
+
+        self.assertIsInstance(sweets, list, "Returned value is not a list.")
+        self.assertEqual(len(sweets), 0, "Expected an empty list when no sweets exist.")

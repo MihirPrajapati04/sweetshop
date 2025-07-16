@@ -31,15 +31,4 @@ class ViewSweetService:
             ) for row in rows
         ]
 
-    def test_view_all_sweets_returns_empty_list_when_no_records(self):
-        """
-        Test that view_all_sweets returns an empty list when no sweets exist in the database.
-        """
-        # Clean DB explicitly to ensure it's empty
-        self.db.cursor.execute("DELETE FROM sweets")
-        self.db.conn.commit()
-
-        sweets = self.service.view_all_sweets()
-
-        self.assertIsInstance(sweets, list, "Returned value is not a list.")
-        self.assertEqual(len(sweets), 0, "Expected an empty list when no sweets exist.")
+    

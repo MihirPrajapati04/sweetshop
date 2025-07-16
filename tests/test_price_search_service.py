@@ -37,3 +37,12 @@ class TestPriceSearchService(unittest.TestCase):
         self.assertEqual(result[0].name, "Kheer", "Sweet name does not match expected.")
         self.assertGreaterEqual(result[0].price, 30.0, "Price is below minimum range.")
         self.assertLessEqual(result[0].price, 50.0, "Price is above maximum range.")
+
+    def test_search_by_price_range_returns_empty_list_when_no_match(self):
+        """
+        Test that an empty list is returned when no sweets fall in the given price range.
+        """
+        result = self.service.search_by_price_range(10.0, 20.0)  # below Kheer's price
+
+        self.assertIsInstance(result, list, "Expected result to be a list.")
+        self.assertEqual(len(result), 0, "Expected an empty list for non-matching price range.")

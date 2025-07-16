@@ -44,3 +44,12 @@ class TestCategorySearchService(unittest.TestCase):
         self.assertIsInstance(result, list, "Expected result to be a list.")
         self.assertEqual(len(result), 1, "Expected one matching sweet.")
         self.assertEqual(result[0].category, "Milk-Based", "Category case does not match original record.")
+
+    def test_search_by_category_returns_empty_list_for_no_match(self):
+        """
+        Test that search_by_category returns an empty list when no matching category exists.
+        """
+        result = self.service.search_by_category("Dry Fruit")  # not inserted in DB
+
+        self.assertIsInstance(result, list, "Expected result to be a list.")
+        self.assertEqual(len(result), 0, "Expected an empty list when no matching category exists.")

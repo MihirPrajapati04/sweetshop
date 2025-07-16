@@ -64,3 +64,15 @@ class TestInventoryService(unittest.TestCase):
             "Sweet with the given ID does not exist.",
             "Incorrect error message for invalid sweet ID."
         )
+
+    def test_restock_sweet_increases_quantity(self):
+        """
+        Test that restocking a sweet increases its quantity.
+        """
+        self.service.restock_sweet(7001, 20)  # Original quantity was 50
+
+        updated_quantity = self.db.cursor.execute(
+            "SELECT quantity FROM sweets WHERE id = ?", (7001,)
+        ).fetchone()[0]
+
+        self.assertEqual(updated_quantity, 70, "Quantity was not correctly increased after restocking.")

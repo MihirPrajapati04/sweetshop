@@ -34,3 +34,12 @@ class TestDeleteSweetService(unittest.TestCase):
 
         result = self.db.cursor.execute("SELECT * FROM sweets WHERE id = ?", (6001,)).fetchone()
         self.assertIsNone(result, "Sweet record was not deleted.")
+
+    def test_delete_sweet_does_not_fail_for_nonexistent_id(self):
+        """
+        Test that deleting a non-existent sweet ID does not raise an error.
+        """
+        try:
+            self.service.delete_sweet(9999)  # ID not in DB
+        except Exception as e:
+            self.fail(f"delete_sweet raised an exception for non-existent ID: {e}")

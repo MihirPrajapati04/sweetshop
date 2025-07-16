@@ -34,3 +34,13 @@ class TestCategorySearchService(unittest.TestCase):
         self.assertEqual(len(result), 1, "Expected one matching sweet.")
         self.assertIsInstance(result[0], Sweet, "Result item is not a Sweet instance.")
         self.assertEqual(result[0].category, "Milk-Based", "Category does not match expected.")
+
+    def test_search_by_category_case_insensitive(self):
+        """
+        Test that search_by_category works in a case-insensitive manner.
+        """
+        result = self.service.search_by_category("milk-based")  # lowercase input
+
+        self.assertIsInstance(result, list, "Expected result to be a list.")
+        self.assertEqual(len(result), 1, "Expected one matching sweet.")
+        self.assertEqual(result[0].category, "Milk-Based", "Category case does not match original record.")

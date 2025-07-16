@@ -38,3 +38,16 @@ class TestInventoryService(unittest.TestCase):
         ).fetchone()[0]
 
         self.assertEqual(updated_quantity, 40, "Quantity not correctly reduced after purchase.")
+
+    def test_purchase_raises_error_when_stock_insufficient(self):
+        """
+        Test that purchasing more than available stock raises a ValueError.
+        """
+        with self.assertRaises(ValueError) as context:
+            self.service.purchase_sweet(7001, 60)  # Only 50 in stock
+
+        self.assertEqual(
+            str(context.exception),
+            "Not enough stock available.",
+            "Incorrect error message for insufficient stock."
+        )

@@ -97,7 +97,7 @@ python -m unittest discover tests/
 ```
 
 ✅ All service classes (add, delete, view, inventory, etc.) have full test coverage.
-📄 A test report is available in [`test_report.txt`](./test_report.md)
+📄 A test report is available in [`test_report.md`](./test_report.md)
 
 ---
 

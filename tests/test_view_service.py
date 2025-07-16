@@ -1,7 +1,7 @@
 import unittest
 from database.db import DBManager
 from models.sweet import Sweet
-from sweetshop.view_service import ViewSweetService  # To be created
+from sweetshop.view_service import ViewSweetService
 
 class TestViewSweetService(unittest.TestCase):
     """
@@ -9,27 +9,47 @@ class TestViewSweetService(unittest.TestCase):
     """
 
     def setUp(self):
+        """
+        Runs before each test. Connects to the DB and clears the sweets table.
+        """
         self.db = DBManager()
         self.db.connect()
         self.service = ViewSweetService(self.db)
 
-        # Insert sample data
         self.db.cursor.execute("DELETE FROM sweets")
-        self.db.cursor.execute("""
-            INSERT INTO sweets (id, name, category, price, quantity)
-            VALUES (?, ?, ?, ?, ?)
-        """, (2001, "Imarti", "Fried", 25.0, 30))
         self.db.conn.commit()
 
     def tearDown(self):
+        """
+        Runs after each test. Drops the table and closes the DB.
+        """
         self.db.clear_db()
         self.db.close()
+
+    def _insert_sample_sweet(self, sweet: Sweet):
+        """
+        Helper method to insert a Sweet into the database.
+        """
+        self.db.cursor.execute("""
+            INSERT INTO sweets (id, name, category, price, quantity)
+            VALUES (?, ?, ?, ?, ?)
+        """, (sweet.id, sweet.name, sweet.category, sweet.price, sweet.quantity))
+        self.db.conn.commit()
 
     def test_view_all_sweets_returns_list(self):
         """
         Test that view_all_sweets returns a non-empty list of Sweet instances.
         """
-        sweets = self.service.view_all_sweets()  # Method to be implemented
+        sweet = Sweet(
+            id=2001,
+            name="Imarti",
+            category="Fried",
+            price=25.0,
+            quantity=30
+        )
+        self._insert_sample_sweet(sweet)
+
+        sweets = self.service.view_all_sweets()
 
         self.assertIsInstance(sweets, list, "Returned value is not a list.")
         self.assertEqual(len(sweets), 1, "Expected exactly one sweet in the list.")
@@ -40,10 +60,6 @@ class TestViewSweetService(unittest.TestCase):
         """
         Test that view_all_sweets returns an empty list when no sweets exist in the database.
         """
-        # Clean DB explicitly to ensure it's empty
-        self.db.cursor.execute("DELETE FROM sweets")
-        self.db.conn.commit()
-
         sweets = self.service.view_all_sweets()
 
         self.assertIsInstance(sweets, list, "Returned value is not a list.")

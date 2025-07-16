@@ -46,3 +46,23 @@ class TestAddSweetService(unittest.TestCase):
         # Assert
         result = self.db.cursor.execute("SELECT * FROM sweets WHERE id = ?", (1001,)).fetchone()
         self.assertIsNotNone(result, "Sweet was not inserted into the database.")
+
+
+    def test_add_sweet_stores_correct_name(self):
+        """
+        Test to verify that the sweet name is correctly stored in the database.
+        """
+        sweet = Sweet(
+            id=1002,
+            name="Rasgulla",
+            category="Milk-Based",
+            price=30.0,
+            quantity=10
+        )
+
+        # Act
+        self.service.add_sweet(sweet)
+
+        # Assert
+        result = self.db.cursor.execute("SELECT * FROM sweets WHERE id = ?", (1002,)).fetchone()
+        self.assertEqual(result[1], "Rasgulla", "Stored sweet name does not match expected name.")
